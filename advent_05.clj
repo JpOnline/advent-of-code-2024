@@ -73,7 +73,10 @@
     (set)
     (clojure.set/intersection (set rules))))
 
-(defn fix-update [update]
+(defn fix-update 
+  "It gets the first broken rule and exchange the numbers in the rule,
+  apply the fn recursively if there are still broken rules."
+  [update]
   (let [[a b] (first (broken-rules update))
         new-update (reduce
                      (fn [acc n]

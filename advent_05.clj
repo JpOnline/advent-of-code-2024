@@ -45,7 +45,14 @@
     (map #(string/split % #"\,"))
     (mapv (fn [nrs] (mapv #(Integer/parseInt %) nrs)))))
 
-(defn break-rule? [update]
+(defn break-rule? 
+  "I generate all the pairs of a page with the pages that come after them, then I swap this pair, so if I find a rule with this swapped pair, means a rule was broken.
+
+  75,97,47,61,53
+  becomes
+  [97 75] [47 75] [61 75] [53 75] [47 97] [61 97] [53 97] [61 47] [53 47] [53 61]
+  and 97|75 is one of the rules."
+  [update]
   (->> update
     (reduce (fn [[c acc] n]
               [(inc c) (conj acc (mapv #(into [% n]) (drop c update)))])

@@ -77,6 +77,7 @@
     (cons current (reconstruct-path came-from (came-from current)))))
 
 ;; Part 1
+;; A* Search algorithm
 (let [start [0 0]
       goal [MAX-POS MAX-POS]
       h cost-heuristic
